@@ -140,6 +140,15 @@ const CustomerDetails = ({
             <Text strong>Last seen</Text>
             <Badge status="processing" text="Online now" />
           </Flex>
+          {lastSeenUrl ? (
+              <Tooltip title={lastSeenUrl}>
+                <a href={lastSeenUrl} target="_blank" rel="noopener noreferrer">
+                  {pathname && pathname.length > 1 ? pathname : lastSeenUrl}
+                </a>
+              </Tooltip>
+            ) : (
+              <Text>Unknown URL</Text>
+            )}
           <Box mb={1}>
             <CustomerActiveSessions customerId={customerId} />
           </Box>
