@@ -43,7 +43,7 @@ const ConversationFooter = ({
             <Box mb={2}>
               <TextArea
                 className="TextArea--transparent"
-                placeholder="Type your message here!"
+                placeholder="Message"
                 autoSize={{maxRows: 4}}
                 autoFocus
                 value={message}

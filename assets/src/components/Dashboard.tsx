@@ -190,6 +190,8 @@ const Dashboard = (props: RouteComponentProps) => {
                       <Badge
                         count={unread.mine}
                         style={{borderColor: '#FF4D4F'}}
+                        title={unread.all + ' conversation(s) with new messages'}
+
                       />
                     </Flex>
                   </Link>
@@ -206,6 +208,8 @@ const Dashboard = (props: RouteComponentProps) => {
                       <Badge
                         count={unread.priority}
                         style={{borderColor: '#FF4D4F'}}
+                        title={unread.all + ' conversation(s) with new messages'}
+
                       />
                     </Flex>
                   </Link>
@@ -223,7 +227,7 @@ const Dashboard = (props: RouteComponentProps) => {
                   <Link to="/sessions/list">Live sessions</Link>
                 </Menu.Item>
                 <Menu.Item key="setup">
-                  <Link to="/sessions/setup">Set up Storytime</Link>
+                  <Link to="/sessions/setup">Set up Live Sessions</Link>
                 </Menu.Item>
               </Menu.SubMenu>
               <Menu.Item
@@ -247,6 +251,27 @@ const Dashboard = (props: RouteComponentProps) => {
               >
                 <Link to="/integrations">Integrations</Link>
               </Menu.Item>
+              <Menu.SubMenu
+                key="account"
+                icon={<UserOutlined />}
+                title="Account"
+              >
+                <Menu.Item key="overview">
+                  <Link to="/account/overview">Overview</Link>
+                </Menu.Item>
+                <Menu.Item key="profile">
+                  <Link to="/account/profile">My Profile</Link>
+                </Menu.Item>
+                <Menu.Item
+                title="Log out"
+                icon={<LogoutOutlined />}
+                key="logout"
+                onClick={logout}
+              >
+                Log out
+              </Menu.Item>
+              </Menu.SubMenu>
+              
               {shouldDisplayBilling && (
                 <Menu.Item
                   title="Billing"
@@ -261,6 +286,13 @@ const Dashboard = (props: RouteComponentProps) => {
 
           <Box py={3}>
             <Menu mode="inline" theme="dark" selectable={false}>
+              <Menu.Item
+                  key="getting-started"
+                  icon={<MessageOutlined />}
+                  title="Chat Widget"
+                  >
+                  <Link to="/account/getting-started">Chat widget</Link>
+                </Menu.Item>
               {shouldDisplayChat(pathname) && (
                 <Menu.Item
                   title="Chat with us!"
@@ -271,14 +303,7 @@ const Dashboard = (props: RouteComponentProps) => {
                   Chat with us!
                 </Menu.Item>
               )}
-              <Menu.Item
-                title="Log out"
-                icon={<LogoutOutlined />}
-                key="logout"
-                onClick={logout}
-              >
-                Log out
-              </Menu.Item>
+              
             </Menu>
           </Box>
         </Flex>

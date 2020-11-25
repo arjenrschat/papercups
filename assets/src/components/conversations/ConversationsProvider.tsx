@@ -308,7 +308,7 @@ export class ConversationsProvider extends React.Component<Props, State> {
   };
 
   handleNewMessage = async (message: Message) => {
-    logger.debug('New message!', message);
+    logger.debug('New message', message);
 
     const {
       messagesByConversation,

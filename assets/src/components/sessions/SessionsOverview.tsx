@@ -143,6 +143,7 @@ class SessionsOverview extends React.Component<Props, State> {
           <Box mb={4}>
             <Paragraph>
               View how vistors are interacting with your website.
+              See exactly what they see in their browser.
             </Paragraph>
 
             {/* FIXME: need to figure out the best way to get people started */}
@@ -150,9 +151,9 @@ class SessionsOverview extends React.Component<Props, State> {
               <Alert
                 message={
                   <Text>
-                    It looks like you haven't set up Storytime yet &mdash;{' '}
-                    <Link to="/sessions/setup">click here</Link> to get started
-                    with live sessions!
+                    It looks like you haven't set up Live Sessions yet &mdash;{' '}
+                    <Link to="/sessions/setup">get started</Link> with live 
+                    sessions.
                   </Text>
                 }
                 type="warning"
