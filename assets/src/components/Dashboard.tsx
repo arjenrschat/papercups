@@ -83,16 +83,17 @@ const ShortcutIcon = ({totalNumUnread}: {totalNumUnread: number}) => {
 
         const image = new Image();
         image.onload = () => {
-          ctx.drawImage(image, 10, 0, image.width,    image.height, 0, 0, canvas.width,    canvas.height);
+          ctx.clearRect(0,0, canvas.width,    canvas.height);
+          ctx.drawImage(image, 0, 0, image.width, image.height, 0, 0, canvas.width,    canvas.height);
           if(totalNumUnread){
             ctx.fillStyle = '#ff4d4f'
             ctx.beginPath()
-            ctx.arc(100, 40, 40, 0, 2 * Math.PI);
+            ctx.arc(24, 8, 8, 0, 2 * Math.PI);
             ctx.fill()
             ctx.fillStyle = '#ffffff'
             ctx.textAlign = "center"; 
-            ctx.font = "90px monospace";
-            ctx.fillText(String(totalNumUnread), 100, 65);
+            ctx.font = "16px monospace";
+            ctx.fillText(String(totalNumUnread), 24, 14);
           }
             setData(canvas.toDataURL())
         };
@@ -103,12 +104,12 @@ const ShortcutIcon = ({totalNumUnread}: {totalNumUnread: number}) => {
   })
   
   return (
-    <section className="ant-layout">
-      <canvas ref={canvasRef} width="144" height="144" style={{width: '144px', height: '144px'}}/>
+    <div className="" style={{display: 'none'}}>
+      <canvas ref={canvasRef} width="32" height="32" style={{width: '0px', height: '0px'}}/>
       <Helmet defer={false}>
         <link rel="shortcut icon" href={data}></link>
       </Helmet>
-    </section>
+    </div>
     )
 
 }
@@ -178,8 +179,7 @@ const Dashboard = (props: RouteComponentProps) => {
 
   return (
     <Layout>
-      <ShortcutIcon totalNumUnread={totalNumUnread} />
-      <DashboardHtmlHead totalNumUnread={totalNumUnread} />
+      
 
       <Sider
         width={220}
@@ -191,7 +191,8 @@ const Dashboard = (props: RouteComponentProps) => {
           left: 0,
           color: colors.white,
         }}
-      >
+      >      <ShortcutIcon totalNumUnread={totalNumUnread} />
+
         <Flex sx={{flexDirection: 'column', height: '100%'}}>
 
           <Box py={3} sx={{flex: 1}}>
