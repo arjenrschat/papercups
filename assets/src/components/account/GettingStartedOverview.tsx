@@ -229,11 +229,10 @@ const ExamplePage = () => {
         }}
       >
         <Box mb={4}>
-          <Title>Getting Started</Title>
+          <Title>Chat widget setup</Title>
           <Paragraph>
             <Text>
-              Before you can start chatting with your customers, you'll need to
-              install our chat component on your website.
+              Customize the chat widget and install it on your website.
             </Text>
           </Paragraph>
         </Box>
@@ -242,14 +241,13 @@ const ExamplePage = () => {
           <Title level={3}>Customize your widget</Title>
           <Paragraph>
             <Text>
-              Customize your widget with the form and color picker. It will
-              update the preview to the right as well as the code below so you
-              can easily copy and paste it into your website looking just the
+              This is what your visitors and customers will see. 
+              Copy and paste the up to date code it into your website looking just the
               way you like!
             </Text>
           </Paragraph>
           <Box mb={3}>
-            <label htmlFor="title">Update the title:</label>
+            <label htmlFor="title">Title:</label>
             <Input
               id="title"
               type="text"
@@ -260,7 +258,7 @@ const ExamplePage = () => {
             />
           </Box>
           <Box mb={3}>
-            <label htmlFor="subtitle">Update the subtitle:</label>
+            <label htmlFor="subtitle">Subtitle:</label>
             <Input
               id="subtitle"
               type="text"
@@ -271,7 +269,7 @@ const ExamplePage = () => {
             />
           </Box>
           <Box mb={3}>
-            <label htmlFor="greeting">Set a greeting (refresh to view):</label>
+            <label htmlFor="greeting">Greeting (refresh to view):</label>
             <Input
               id="greeting"
               type="text"
@@ -283,7 +281,7 @@ const ExamplePage = () => {
           </Box>
           <Box mb={3}>
             <label htmlFor="new_message_placeholder">
-              Update the new message placeholder text:
+              Message placeholder text:
             </label>
             <Input
               id="new_message_placeholder"
@@ -295,7 +293,7 @@ const ExamplePage = () => {
             />
           </Box>
           <Box mb={3}>
-            <Paragraph>Try changing the color:</Paragraph>
+            <Paragraph>Widget color:</Paragraph>
             <TwitterPicker
               color={this.state.color}
               onChangeComplete={this.handleChangeColor}
@@ -315,20 +313,7 @@ const ExamplePage = () => {
         </Box>
 
         <Box mb={4}>
-          <Title level={3}>Installing the widget</Title>
-          <Paragraph>
-            <Text>
-              Before you can start receiving messages here in your dashboard,
-              you'll need to install the chat widget into your website.{' '}
-              <span role="img" aria-label=":)">
-                😊
-              </span>
-            </Text>
-          </Paragraph>
-        </Box>
-
-        <Box mb={4}>
-          <Title level={3}>Usage in HTML</Title>
+          <Title level={3}>Installing the widget in HTML</Title>
           <Paragraph>
             <Text>
               Paste the code below between your <Text code>{'<head>'}</Text> and{' '}

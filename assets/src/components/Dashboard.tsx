@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState, useRef} from 'react';
 import {
   useLocation,
   Switch,
@@ -22,6 +22,7 @@ import {
   CreditCardOutlined,
   SmileOutlined,
   TeamOutlined,
+  MessageOutlined,
   VideoCameraOutlined,
 } from './icons';
 import {BASE_URL, isDev} from '../config';
@@ -44,6 +45,7 @@ import SessionsOverview from './sessions/SessionsOverview';
 import InstallingStorytime from './sessions/InstallingStorytime';
 import LiveSessionViewer from './sessions/LiveSessionViewer';
 import ReportingDashboard from './reporting/ReportingDashboard';
+import { onLoad } from '@sentry/react';
 
 const {
   REACT_APP_STRIPE_PUBLIC_KEY,
@@ -145,6 +147,7 @@ const Dashboard = (props: RouteComponentProps) => {
         }}
       >
         <Flex sx={{flexDirection: 'column', height: '100%'}}>
+
           <Box py={3} sx={{flex: 1}}>
             <Menu
               selectedKeys={[section, key]}
@@ -152,21 +155,7 @@ const Dashboard = (props: RouteComponentProps) => {
               mode="inline"
               theme="dark"
             >
-              <Menu.SubMenu
-                key="account"
-                icon={<UserOutlined />}
-                title="Account"
-              >
-                <Menu.Item key="overview">
-                  <Link to="/account/overview">Overview</Link>
-                </Menu.Item>
-                <Menu.Item key="profile">
-                  <Link to="/account/profile">My Profile</Link>
-                </Menu.Item>
-                <Menu.Item key="getting-started">
-                  <Link to="/account/getting-started">Getting started</Link>
-                </Menu.Item>
-              </Menu.SubMenu>
+
               <Menu.SubMenu
                 key="conversations"
                 icon={<MailOutlined />}
@@ -184,6 +173,7 @@ const Dashboard = (props: RouteComponentProps) => {
                       <Badge
                         count={unread.all}
                         style={{borderColor: '#FF4D4F'}}
+                        title={unread.all + ' conversation(s) with new messages'}
                       />
                     </Flex>
                   </Link>
