@@ -69,6 +69,51 @@ const shouldDisplayChat = (pathname: string) => {
   return true;
 };
 
+
+const ShortcutIcon = ({totalNumUnread}: {totalNumUnread: number}) => {
+  
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const icon_link = '/logo.svg'
+  const [data, setData] = useState(icon_link);
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if(canvas){
+      const ctx = canvas.getContext('2d')
+      if(ctx){
+
+        const image = new Image();
+        image.onload = () => {
+          ctx.drawImage(image, 10, 0, image.width,    image.height, 0, 0, canvas.width,    canvas.height);
+          if(totalNumUnread){
+            ctx.fillStyle = '#ff4d4f'
+            ctx.beginPath()
+            ctx.arc(100, 40, 40, 0, 2 * Math.PI);
+            ctx.fill()
+            ctx.fillStyle = '#ffffff'
+            ctx.textAlign = "center"; 
+            ctx.font = "90px monospace";
+            ctx.fillText(String(totalNumUnread), 100, 65);
+          }
+            setData(canvas.toDataURL())
+        };
+        image.src = icon_link;
+      }
+  
+    }
+  })
+  
+  return (
+    <section className="ant-layout">
+      <canvas ref={canvasRef} width="144" height="144" style={{width: '144px', height: '144px'}}/>
+      <Helmet defer={false}>
+        <link rel="shortcut icon" href={data}></link>
+      </Helmet>
+    </section>
+    )
+
+}
+
+
 // TODO: not sure if this is the best way to handle this, but the goal
 // of this component is to flash the number of unread messages in the
 // tab (i.e. HTML title) so users can see when new messages arrive
@@ -133,6 +178,7 @@ const Dashboard = (props: RouteComponentProps) => {
 
   return (
     <Layout>
+      <ShortcutIcon totalNumUnread={totalNumUnread} />
       <DashboardHtmlHead totalNumUnread={totalNumUnread} />
 
       <Sider
