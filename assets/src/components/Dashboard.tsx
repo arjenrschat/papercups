@@ -75,6 +75,26 @@ const ShortcutIcon = ({totalNumUnread}: {totalNumUnread: number}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const icon_link = '/logo.svg'
   const [data, setData] = useState(icon_link);
+  var x = 0
+  var y = 0
+  const mult = 2
+  const xOffset = 18
+  const yOffset = 1
+  var xExtraOffset = 0
+  var yExtraOffset = 0
+  
+  const numbers = [ 
+      [0,0,0,0,0,0, 0,0,1,1,0,0, 0,0,1,1,0,0, 1,1,1,1,1,1, 1,1,1,1,1,1, 0,0,1,1,0,0, 0,0,1,1,0,0,],
+      [0,0,0,1,0,0, 0,1,1,1,0,0, 0,0,0,1,0,0, 0,0,0,1,0,0, 0,0,0,1,0,0, 0,0,0,1,0,0, 0,0,1,1,1,0,],
+      [0,0,1,1,0,0, 0,1,0,0,1,0, 0,0,0,0,1,0, 0,0,0,1,0,0, 0,0,1,0,0,0, 0,1,0,0,0,0, 0,1,1,1,1,0,],
+      [0,0,1,1,0,0, 0,1,0,0,1,0, 0,0,0,0,1,0, 0,0,1,1,0,0, 0,0,0,0,1,0, 0,1,0,0,1,0, 0,0,1,1,0,0,],
+      [0,1,0,0,1,0, 0,1,0,0,1,0, 0,1,0,0,1,0, 0,1,1,1,1,0, 0,0,0,0,1,0, 0,0,0,0,1,0, 0,0,0,0,1,0,],
+      [0,1,1,1,1,0, 0,1,0,0,0,0, 0,1,1,1,0,0, 0,0,0,0,1,0, 0,0,0,0,1,0, 0,1,0,0,1,0, 0,0,1,1,0,0,],
+      [0,0,0,1,1,0, 0,0,1,0,0,0, 0,1,0,0,0,0, 0,1,1,1,0,0, 0,1,0,0,1,0, 0,1,0,0,1,0, 0,0,1,1,0,0,],
+      [0,1,1,1,1,0, 0,0,0,0,1,0, 0,0,0,0,1,0, 0,0,0,0,1,0, 0,0,0,0,1,0, 0,0,0,0,1,0, 0,0,0,0,1,0,],
+      [0,0,1,1,0,0, 0,1,0,0,1,0, 0,1,0,0,1,0, 0,0,1,1,0,0, 0,1,0,0,1,0, 0,1,0,0,1,0, 0,0,1,1,0,0,],
+      [0,0,1,1,0,0, 0,1,0,0,1,0, 0,1,0,0,1,0, 0,0,1,1,1,0, 0,0,0,0,1,0, 0,0,0,0,1,0, 0,0,0,0,1,0,],
+  ]
   useEffect(() => {
     const canvas = canvasRef.current
     if(canvas){
@@ -90,10 +110,25 @@ const ShortcutIcon = ({totalNumUnread}: {totalNumUnread: number}) => {
             ctx.beginPath()
             ctx.arc(24, 8, 8, 0, 2 * Math.PI);
             ctx.fill()
+            if(totalNumUnread < 10){
+              var grid = numbers[totalNumUnread];
+            }
+            else{
+              var grid = numbers[0];
+              yExtraOffset = -1
+            }
+            ctx.beginPath()
             ctx.fillStyle = '#ffffff'
-            ctx.textAlign = "center"; 
-            ctx.font = "16px monospace";
-            ctx.fillText(String(totalNumUnread), 24, 14);
+            for(var _i=0; _i< 6 * 7; _i++){
+              if(grid[_i]){
+                ctx.rect(xOffset + xExtraOffset + (_i % 6 * mult), yOffset + yExtraOffset + (Math.floor(_i / 6) * mult), mult, mult)
+              }
+              
+            }
+            ctx.fill()
+            //ctx.textAlign = "center"; 
+            //ctx.font = "16px monospace";
+            //ctx.fillText(String(totalNumUnread), 24, 14);
           }
             setData(canvas.toDataURL())
         };
@@ -104,8 +139,8 @@ const ShortcutIcon = ({totalNumUnread}: {totalNumUnread: number}) => {
   })
   
   return (
-    <div className="" style={{display: 'none'}}>
-      <canvas ref={canvasRef} width="32" height="32" style={{width: '0px', height: '0px'}}/>
+    <div className="" style={{position:'absolute', zIndex: 1, display: 'none'}}>
+      <canvas ref={canvasRef} width="32" height="32" style={{width: '0', height: '0'}}/>
       <Helmet defer={false}>
         <link rel="shortcut icon" href={data}></link>
       </Helmet>
@@ -180,6 +215,7 @@ const Dashboard = (props: RouteComponentProps) => {
   return (
     <Layout>
       
+      <ShortcutIcon totalNumUnread={totalNumUnread} />
 
       <Sider
         width={220}
@@ -191,7 +227,7 @@ const Dashboard = (props: RouteComponentProps) => {
           left: 0,
           color: colors.white,
         }}
-      >      <ShortcutIcon totalNumUnread={totalNumUnread} />
+      >     
 
         <Flex sx={{flexDirection: 'column', height: '100%'}}>
 
